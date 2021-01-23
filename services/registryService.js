@@ -45,7 +45,7 @@ class RegistryService {
       async (dependency) => {
         const { dependencyPackageName, dependencyPackageVersion } = this._extractDependencyNameAndVersion(dependency)
 
-        return await this.mapPackageDependencies(dependencyPackageName, dependencyPackageVersion)
+        return this.mapPackageDependencies(dependencyPackageName, dependencyPackageVersion)
       },
       {
         concurrency: MAPPING_CONCURRENCY,
