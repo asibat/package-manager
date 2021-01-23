@@ -26,7 +26,7 @@ const app = new Koa()
 app.use(responseTime({}))
 
 promisifyAll(redis)
-const client = redis.createClient(PORT, HOST)
+const client = redis.createClient(process.env.REDIS_URL || { port: PORT, host: HOST })
 
 client.on('error', (error) => {
   logger.error('Redis connection error!')

@@ -1,0 +1,20 @@
+version: '2'
+services:
+  package-manager:
+    build: .
+    restart: always
+    ports:
+      - 8000:8000
+    links:
+      - redis
+    environment:
+      - NODE_ENV=development
+      - REDIS_URL=redis://cache
+    command: ["./wait-for", "redis:6379", "--", "npm", "start"]
+
+  redis:
+    image: redis
+    restart: always
+    container_name: cache
+    ports:
+      - 6379:6379
