@@ -1,0 +1,32 @@
+{
+  "development": {
+    "app": {
+      "port": 8080
+    },
+    "redis": {
+      "host": "127.0.0.1",
+      "port": 6379
+    },
+    "registryUrl": "https://registry.npmjs.org"
+  },
+  "test": {
+    "app": {
+      "port": 8080
+    },
+    "redis": {
+      "host": "127.0.0.1",
+      "port": 6379
+    },
+    "registryUrl": "http://registry.test.test"
+  },
+  "production": {
+    "app": {
+      "port": 8080
+    },
+    "redis": {
+      "host": "127.0.0.1",
+      "port": 6379
+    },
+    "registryUrl": "https://registry.npmjs.org"
+  }
+}

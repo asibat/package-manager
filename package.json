@@ -1,0 +1,51 @@
+{
+  "name": "package-manager",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "NODE_ENV=test mocha test/*.test.js --reporter mochawesome --timeout 10000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asibat/package-manager.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asibat/package-manager/issues"
+  },
+  "homepage": "https://github.com/asibat/package-manager#readme",
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "koa": "^2.13.1",
+    "koa-body": "^4.2.0",
+    "koa-response-time": "^2.1.0",
+    "koa-router": "^10.0.0",
+    "lodash": "^4.17.20",
+    "redis": "^3.0.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "sinon": "^9.2.4",
+    "sinon-chai": "^3.5.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.3.0",
+    "eslint": "^7.18.0",
+    "eslint-config-prettier": "^7.2.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "mocha": "^8.2.1",
+    "mochawesome": "^6.2.1",
+    "nock": "^13.0.6",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.2.1",
+    "redis-mock": "^0.56.3"
+  }
+}

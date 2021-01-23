@@ -1,0 +1,20 @@
+{
+  "name": "acceptss",
+  "version": "100.100.100",
+  "dependencies": [
+    {
+      "name": "mime-types",
+      "version": "200.200.200",
+      "dependencies": [
+        {
+          "name": "mime-db",
+          "version": "400.400.400"
+        }
+      ]
+    },
+    {
+      "name": "negotiator",
+      "version": "300.300.300"
+    }
+  ]
+}
