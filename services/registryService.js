@@ -1,5 +1,5 @@
 const bluebird = require('bluebird')
-const { formatRegistryPackageVersion } = require('../helpers')
+const { formatRegistryPackageVersion } = require('../lib/helpers')
 
 const MAPPING_CONCURRENCY = 5
 
