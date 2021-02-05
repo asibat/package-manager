@@ -2,14 +2,18 @@ version: '2'
 services:
   package-manager:
     build: .
+    hostname: package-manager
     restart: always
     ports:
       - 8000:8000
     links:
       - redis
+      - redis-test
     environment:
       - NODE_ENV=development
       - REDIS_URL=redis://cache
+    networks:
+      - main
     command: ["./wait-for", "redis:6379", "--", "npm", "start"]
 
   redis:
@@ -18,3 +22,20 @@ services:
     container_name: cache
     ports:
       - 6379:6379
+    networks:
+      main:
+        aliases:
+          - redis
+
+  redis-test:
+    image: redis
+    ports:
+      - 6380:6379
+      - 6379
+    networks:
+      main:
+        aliases:
+          - redis-test
+
+networks:
+  main:

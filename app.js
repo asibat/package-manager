@@ -2,8 +2,8 @@ const Koa = require('koa')
 const koaBody = require('koa-body')
 const responseTime = require('koa-response-time')
 const redis = require('redis')
-const { promisifyAll } = require('bluebird')
 
+const { promisifyAll } = require('bluebird')
 const { transports } = require('winston')
 const { merge } = require('lodash')
 
@@ -36,6 +36,7 @@ client.on('error', (error) => {
 client.on('connect', () => {
   logger.info('Redis Connected!')
 })
+
 const registryUrl = finalConfig.registryUrl
 const registryClient = new RegistryClient({ registryUrl, logger })
 const redisClient = new RedisCache(client)
@@ -74,4 +75,5 @@ app.listen(port, function () {
 
 module.exports = {
   app,
+  redisClient,
 }

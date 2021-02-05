@@ -22,14 +22,18 @@ class RegistryService {
       packageDependencies = await this.registryClient.getPackageSetOfDependencies(packageName, version)
 
       await this.cache.set(cachePackageKey, packageDependencies)
+
       return packageDependencies
     } catch (error) {
-      this.logger.warn(`registryService.get.package.failed - ${error.message}`)
+      this.logger.warn(`registryService.get.package.failed - ${error.message} - ${packageName}`)
+      if ([404, 405].includes(error.statusCode)) {
+        return []
+      }
       throw error
     }
   }
 
-  async mapPackageDependencies(packageName, packageVersion = 'latest') {
+  async mapPackageDependencies(packageName, parentPackages = [], packageVersion = 'latest') {
     const result = {
       name: packageName,
     }
@@ -44,14 +48,24 @@ class RegistryService {
       Object.entries(dependencies),
       async (dependency) => {
         const { dependencyPackageName, dependencyPackageVersion } = this._extractDependencyNameAndVersion(dependency)
-
-        return await this.mapPackageDependencies(dependencyPackageName, dependencyPackageVersion)
+        const dependencyParents = [...parentPackages, packageName]
+        if (this.isCircularDependency(dependencyPackageName, dependencyParents)) {
+          this.logger.error(
+            `registryService.mapping.package.failed.CircularDependency - ${dependencyPackageName} - ${dependencyParents}`
+          )
+          return
+        }
+        return this.mapPackageDependencies(dependencyPackageName, dependencyParents, dependencyPackageVersion)
       },
       {
         concurrency: MAPPING_CONCURRENCY,
       }
     )
     return result
+  }
+
+  isCircularDependency(packageName, packageParents) {
+    return packageParents.includes(packageName)
   }
 
   _extractDependencyNameAndVersion(dependency) {

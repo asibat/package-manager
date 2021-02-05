@@ -1,8 +1,9 @@
 function formatRegistryPackageVersion(packageVersion) {
-  let specialCharsRemoved = packageVersion.replace(/[!@#$%^~&><=||*]/g, ' ')
+  let specialCharsRemoved = packageVersion.trim().replace(/[!@#$%^~&><=||*]/g, ' ')
 
-  if (!hasWhiteSpace(specialCharsRemoved)) {
-    return specialCharsRemoved
+  // in case version is something like 3.x.x
+  if (/[x]/g.test(packageVersion)) {
+    return 'latest'
   }
 
   const stringArr = specialCharsRemoved.split(' ')
@@ -11,16 +12,12 @@ function formatRegistryPackageVersion(packageVersion) {
   // find first item in array that has the package version format
   for (let item of stringArr) {
     if (pattern.test(item)) {
-      if (item.length === 1) {
-        return `${item}.0.0`
+      if (item.length === 1 || item.length < 5) {
+        return 'latest'
       }
       return item
     }
   }
-}
-
-function hasWhiteSpace(s) {
-  return /\s/g.test(s)
 }
 
 module.exports = {
